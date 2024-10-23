@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useWallet } from "../../hooks";
 import { useSearchStore } from "../../pages/Home/CoinTable";
 
 const activeStyles = "bg-gray-900 text-white";
@@ -8,6 +9,7 @@ const normalStyles =
 export default function NavBar() {
   const [activeURL, setActiveURL] = useState("");
   const { setSearchString, searchString } = useSearchStore();
+  const { isWalletConnected, connectWallet } = useWallet();
 
   useEffect(() => {
     setActiveURL(window.location.pathname);
@@ -49,7 +51,29 @@ export default function NavBar() {
           </div>
           {activeURL === "/" && (
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <div className="relative ml-3">
+              <div className="relative ml-3 flex flex-row items-center justify-center">
+                {isWalletConnected && (
+                  <div>
+                    <a
+                      href="/my-assets"
+                      className={`${normalStyles} mr-4 bg-green-700 hover:bg-green-900`}
+                    >
+                      My Assets
+                    </a>
+                  </div>
+                )}
+                {!isWalletConnected && (
+                  <div>
+                    <button
+                      className={`${normalStyles} mr-4 bg-green-700 hover:bg-green-900`}
+                      onClick={() => {
+                        connectWallet();
+                      }}
+                    >
+                      Connect Wallet
+                    </button>
+                  </div>
+                )}
                 <div>
                   <input
                     value={searchString}

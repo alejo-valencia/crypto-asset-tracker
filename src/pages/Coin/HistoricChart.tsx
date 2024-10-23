@@ -63,7 +63,7 @@ const HistoricChart: React.FC<CoinHistoricalChartProps> = ({
   if (error1 || error2) return <p>Error loading data</p>;
 
   return (
-    <div className="container m-8 flex w-full flex-col items-center rounded-lg bg-white p-4 shadow-md">
+    <div className="flex flex-col items-center rounded-lg bg-white p-4 shadow-md">
       <h2 className="mb-4 text-center text-xl font-semibold">
         {title}
         <br />
